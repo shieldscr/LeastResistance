@@ -56,7 +56,7 @@ public class LeastResistenceTest {
 
         LeastResistence leastResistence = new LeastResistence(grid);
 
-        assertEquals(3, leastResistence.getTotalResistence());
+        assertEquals(3, leastResistence.findResistance());
     }
 
     @Test
@@ -65,8 +65,28 @@ public class LeastResistenceTest {
 
         LeastResistence leastResistence = new LeastResistence(grid);
 
-        leastResistence.getTotalResistence();
+        leastResistence.findResistance();
         assertEquals("1 1 1", leastResistence.getPathTaken());
+    }
+
+    @Test
+    public void whenResistenceIsGreaterThanFiftyThenFlowStops() {
+        int[][] grid = {{1, 49, 1}};
+
+        LeastResistence leastResistence = new LeastResistence(grid);
+
+        leastResistence.findResistance();
+        assertEquals("No", leastResistence.flowSucceeded());
+    }
+
+    @Test
+    public void whenResistenceIsLessThanFiftyThenFlowSucceeds() {
+        int[][] grid = {{1, 25, 10}};
+
+        LeastResistence leastResistence = new LeastResistence(grid);
+
+        assertEquals(36, leastResistence.findResistance());
+        assertEquals("Yes", leastResistence.flowSucceeded());
     }
 
     private int[][] buildGridOfSize(int rows, int columns) {
