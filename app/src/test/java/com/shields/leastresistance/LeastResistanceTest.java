@@ -89,6 +89,17 @@ public class LeastResistanceTest {
         assertEquals("Yes", leastResistance.flowSucceeded());
     }
 
+    @Test
+    public void fiveRowGridResistanceIsCalculatedCorrectly() {
+        int[][] grid = {{1, 2, 3, 4, 5}};
+
+        LeastResistance leastResistance = new LeastResistance(grid);
+
+        assertEquals(15, leastResistance.findResistance());
+        assertEquals("Yes", leastResistance.flowSucceeded());
+        assertEquals("1 1 1 1 1", leastResistance.getPathTaken());
+    }
+
     private int[][] buildGridOfSize(int rows, int columns) {
         int[][] generatedArray = new int[rows][columns];
 
