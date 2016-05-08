@@ -19,18 +19,21 @@ public class LeastResistance {
     }
 
     public int findResistance() {
-        int totalResistance = 0;
+        return findResistanceRecurse(0, 0);
+    }
 
-        for(int column = 0; column < grid[0].length; column++) {
-            totalResistance += grid[0][column];
-            if(totalResistance > 50) {
-                flowSucceeded = "No";
-                break;
-            }
-            pathTaken += 0 + 1 + " ";
+    public int findResistanceRecurse(int column, int resistance) {
+        if(resistance > 50) {
+            flowSucceeded = "No";
+            return resistance;
+        }
+        if(column >= grid[0].length) {
+            return resistance;
         }
 
-        return totalResistance;
+        resistance += grid[0][column];
+        pathTaken += 0 + 1 + " ";
+        return findResistanceRecurse(column + 1, resistance);
     }
 
     public String getPathTaken() {

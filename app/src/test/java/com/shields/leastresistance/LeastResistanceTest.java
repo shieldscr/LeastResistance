@@ -90,7 +90,7 @@ public class LeastResistanceTest {
     }
 
     @Test
-    public void fiveRowGridResistanceIsCalculatedCorrectly() {
+    public void fiveColumnGridResistanceIsCalculatedCorrectly() {
         int[][] grid = {{1, 2, 3, 4, 5}};
 
         LeastResistance leastResistance = new LeastResistance(grid);
