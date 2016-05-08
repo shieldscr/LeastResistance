@@ -16,4 +16,14 @@ public class LeastResistence {
 
         return isValid;
     }
+
+    public int getTotalResistence() {
+        int totalResistence = 0;
+
+        for(int column = 0; column < grid[0].length; column++) {
+            totalResistence += grid[0][column];
+        }
+
+        return totalResistence;
+    }
 }

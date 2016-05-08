@@ -50,6 +50,15 @@ public class LeastResistenceTest {
         assertTrue(leastResistence.isGridValid());
     }
 
+    @Test
+    public void simpleResistenceCanBeCalculated() {
+        int[][] grid = {{1, 1, 1}};
+
+        LeastResistence leastResistence = new LeastResistence(grid);
+
+        assertEquals(3, leastResistence.getTotalResistence());
+    }
+
     private int[][] buildGridOfSize(int rows, int columns) {
         int[][] generatedArray = new int[rows][columns];
 
