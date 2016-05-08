@@ -1,11 +1,11 @@
-package com.shields.leastresistence;
+package com.shields.leastresistance;
 
-public class LeastResistence {
+public class LeastResistance {
     int[][] grid;
     String pathTaken = "";
     private String flowSucceeded = "Yes";
 
-    public LeastResistence(int[][] grid) {
+    public LeastResistance(int[][] grid) {
         this.grid = grid;
     }
 
@@ -19,18 +19,18 @@ public class LeastResistence {
     }
 
     public int findResistance() {
-        int totalResistence = 0;
+        int totalResistance = 0;
 
         for(int column = 0; column < grid[0].length; column++) {
-            totalResistence += grid[0][column];
-            if(totalResistence > 50) {
+            totalResistance += grid[0][column];
+            if(totalResistance > 50) {
                 flowSucceeded = "No";
                 break;
             }
             pathTaken += 0 + 1 + " ";
         }
 
-        return totalResistence;
+        return totalResistance;
     }
 
     public String getPathTaken() {
