@@ -51,12 +51,22 @@ public class LeastResistenceTest {
     }
 
     @Test
-    public void simpleResistenceCanBeCalculated() {
+    public void simpleResistenceCanBeCalculatedForOneRow() {
         int[][] grid = {{1, 1, 1}};
 
         LeastResistence leastResistence = new LeastResistence(grid);
 
         assertEquals(3, leastResistence.getTotalResistence());
+    }
+
+    @Test
+    public void resistencePathTakenCanBeReturned() {
+        int[][] grid = {{1, 1, 1}};
+
+        LeastResistence leastResistence = new LeastResistence(grid);
+
+        leastResistence.getTotalResistence();
+        assertEquals("1 1 1", leastResistence.getPathTaken());
     }
 
     private int[][] buildGridOfSize(int rows, int columns) {

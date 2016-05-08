@@ -3,6 +3,7 @@ package com.shields.leastresistence;
 public class LeastResistence {
     //rows columns
     int[][] grid;
+    String pathTaken = "";
 
     public LeastResistence(int[][] grid) {
         this.grid = grid;
@@ -22,8 +23,13 @@ public class LeastResistence {
 
         for(int column = 0; column < grid[0].length; column++) {
             totalResistence += grid[0][column];
+            pathTaken += 0 + 1 + " ";
         }
 
         return totalResistence;
+    }
+
+    public String getPathTaken() {
+        return pathTaken.trim();
     }
 }
