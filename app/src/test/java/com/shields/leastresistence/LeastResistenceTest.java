@@ -25,17 +25,7 @@ public class LeastResistenceTest {
 
     @Test
     public void validGridCannotBeLargerThanTenRows() {
-        int[][] invalidGrid = {{1, 2, 3, 4, 5},
-                {1, 2, 3, 4, 5},
-                {1, 2, 3, 4, 5},
-                {1, 2, 3, 4, 5},
-                {1, 2, 3, 4, 5},
-                {1, 2, 3, 4, 5},
-                {1, 2, 3, 4, 5},
-                {1, 2, 3, 4, 5},
-                {1, 2, 3, 4, 5},
-                {1, 2, 3, 4, 5},
-                {9, 9, 9, 9, 9}};
+        int[][] invalidGrid = buildGridOfSize(11, 5);
 
         LeastResistence leastResistence = new LeastResistence(invalidGrid);
 
