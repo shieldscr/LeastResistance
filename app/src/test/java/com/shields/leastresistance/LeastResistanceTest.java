@@ -100,6 +100,19 @@ public class LeastResistanceTest {
         assertEquals("1 1 1 1 1", leastResistance.getPathTaken());
     }
 
+    @Test
+    public void twoRowGridResistanceBestPathCanBeFound() {
+        int[][] grid = {
+                {1, 99, 99},
+                {1, 1, 1}
+        };
+
+        LeastResistance leastResistance = new LeastResistance(grid);
+        leastResistance.findResistance();
+
+        assertEquals("1 2 2", leastResistance.getPathTaken());
+    }
+
     private int[][] buildGridOfSize(int rows, int columns) {
         int[][] generatedArray = new int[rows][columns];
 
