@@ -44,6 +44,12 @@ public class LeastResistanceActivity extends AppCompatActivity {
                     String message = "";
                     if (!leastResistance.isGridValid())
                         message = "Grid must be at least 5 columns long";
+                    else {
+                        Integer resistance = leastResistance.findResistance();
+                        message = leastResistance.flowSucceeded() + "\n"
+                                + resistance.toString() + "\n"
+                                + leastResistance.getPathTaken();
+                    }
 
                     outputText.setText(message);
                 } else {

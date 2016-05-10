@@ -59,4 +59,25 @@ public class LeastResistanceActivityTest {
         runFlowButton.performClick();
         assertEquals("Grid must be at least 5 columns long", outputText.getText());
     }
+
+    @Test
+    public void runFlowButtonReturnsSuccessfulFlowIndicatorWhenPressedWithValidRowLength() {
+        editTextField.setText("1 2 3 4 5");
+        runFlowButton.performClick();
+        assertTrue(outputText.getText().toString().contains("Yes"));
+    }
+
+    @Test
+    public void runFlowButtonReturnsTotalFlowCostWhenPressedWithValidRowLength() {
+        editTextField.setText("1 2 3 4 5");
+        runFlowButton.performClick();
+        assertTrue(outputText.getText().toString().contains("15"));
+    }
+
+    @Test
+    public void runFlowButtonReturnsPathTakenWhenPressedWithValidRowLength() {
+        editTextField.setText("1 2 3 4 5");
+        runFlowButton.performClick();
+        assertTrue(outputText.getText().toString().contains("1 1 1 1 1"));
+    }
 }
