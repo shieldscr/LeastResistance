@@ -18,32 +18,45 @@ import static org.junit.Assert.*;
 public class LeastResistanceActivityTest {
 
     LeastResistanceActivity leastResistanceActivity;
-    EditText editTextButton;
+    EditText editTextField;
     Button runFlowButton;
     TextView outputText;
 
     @Before
     public void setUp() {
         leastResistanceActivity = Robolectric.setupActivity(LeastResistanceActivity.class);
-        editTextButton = (EditText)leastResistanceActivity.findViewById(R.id.row_input);
+        editTextField = (EditText)leastResistanceActivity.findViewById(R.id.row_input);
         runFlowButton = (Button)leastResistanceActivity.findViewById(R.id.run_flow_button);
         outputText = (TextView)leastResistanceActivity.findViewById(R.id.text_output);
     }
 
     @Test
     public void leastResistanceActivityContainsRowInput() {
-        assertNotNull(editTextButton);
+        assertNotNull(editTextField);
     }
 
     @Test
     public void leastResistanceActivityContainsRunFlowButton() {
         assertNotNull(runFlowButton);
-        assertEquals(runFlowButton.getText(), "Run Flow");
+        assertEquals("Run Flow", runFlowButton.getText());
     }
 
     @Test
     public void leastResistanceActivityContainsTextOutput() {
         assertNotNull(outputText);
-        assertEquals(outputText.getText(), "");
+        assertEquals("", outputText.getText());
+    }
+
+    @Test
+    public void runFlowButtonReturnsErrorTextWhenPressedWithNoRow() {
+        runFlowButton.performClick();
+        assertEquals("Please enter grid", outputText.getText());
+    }
+
+    @Test
+    public void runFlowButtonReturnsLengthErrorTextWhenPressedWithInvalidRowLength() {
+        editTextField.setText("1 2 3");
+        runFlowButton.performClick();
+        assertEquals("Grid must be at least 5 columns long", outputText.getText());
     }
 }
