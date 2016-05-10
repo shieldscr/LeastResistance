@@ -15,47 +15,63 @@ import java.util.List;
 public class LeastResistanceActivity extends AppCompatActivity {
 
     protected LeastResistance leastResistance;
+    private EditText editTextField;
+    private Button runFlowButton;
+    private TextView outputText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_least_resistance);
 
-        final EditText editTextField = (EditText)findViewById(R.id.row_input);
-        final Button runFlowButton = (Button)findViewById(R.id.run_flow_button);
-        final TextView outputText = (TextView)findViewById(R.id.text_output);
+        editTextField = (EditText) findViewById(R.id.row_input);
+        runFlowButton = (Button) findViewById(R.id.run_flow_button);
+        outputText = (TextView) findViewById(R.id.text_output);
 
-        runFlowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<Integer> rowList = new ArrayList<>();
+        runFlowButton.setOnClickListener(new RunFlowListener());
+    }
 
-                String editTextFieldText = editTextField.getText().toString();
-                if(!editTextFieldText.isEmpty()) {
-                    for (String item : editTextField.getText().toString().split(" ")) {
-                        rowList.add(Integer.parseInt(item));
-                    }
+    private class RunFlowListener implements View.OnClickListener {
 
-                    int[] input = ArrayUtils.toPrimitive(rowList.toArray(new Integer[0]));
-                    int[][] inputList = new int[][]{input};
+        @Override
+        public void onClick(View v) {
+            String editTextFieldText = editTextField.getText().toString();
+            if(!editTextFieldText.isEmpty()) {
+                int[] input = getNumberArray();
+                int[][] inputList = new int[][]{input};
 
-                    leastResistance = new LeastResistance(inputList);
+                leastResistance = new LeastResistance(inputList);
 
-                    String message = "";
-                    if (!leastResistance.isGridValid())
-                        message = "Grid must be at least 5 columns long";
-                    else {
-                        Integer resistance = leastResistance.findResistance();
-                        message = leastResistance.flowSucceeded() + "\n"
-                                + resistance.toString() + "\n"
-                                + leastResistance.getPathTaken();
-                    }
+                String message = buildOutputMessage();
 
-                    outputText.setText(message);
-                } else {
-                    outputText.setText("Please enter grid");
-                }
+                outputText.setText(message);
+            } else {
+                outputText.setText("Please enter grid");
             }
-        });
+        }
+
+        private String buildOutputMessage() {
+            String message;
+            if (!leastResistance.isGridValid())
+                message = "Grid must be at least 5 columns long";
+            else {
+                Integer resistance = leastResistance.findResistance();
+                message = leastResistance.flowSucceeded() + "\n"
+                        + resistance.toString() + "\n"
+                        + leastResistance.getPathTaken();
+            }
+            return message;
+        }
+
+        private int[] getNumberArray() {
+            List<Integer> rowList = new ArrayList<>();
+
+            for (String item : editTextField.getText().toString().split(" ")) {
+                rowList.add(Integer.parseInt(item));
+            }
+
+            return ArrayUtils.toPrimitive(rowList.toArray(new Integer[0]));
+        }
+
     }
 }
