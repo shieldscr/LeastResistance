@@ -80,4 +80,19 @@ public class LeastResistanceActivityTest {
         runFlowButton.performClick();
         assertTrue(outputText.getText().toString().contains("1 1 1 1 1"));
     }
+
+    @Test
+    public void runFlowButtonReturnsPathTakenWhenPressedWithFiveRows() {
+        editTextField.setText(
+                "3 4 1 2 8 6\n" +
+                "6 1 8 2 7 4\n" +
+                "5 9 3 9 9 5\n" +
+                "8 4 1 3 2 6\n" +
+                "3 7 2 8 6 4");
+
+        runFlowButton.performClick();
+        assertTrue(outputText.getText().toString().contains("Yes"));
+        assertTrue(outputText.getText().toString().contains("16"));
+        assertTrue(outputText.getText().toString().contains("1 2 3 4 4 5"));
+    }
 }

@@ -37,8 +37,8 @@ public class LeastResistanceActivity extends AppCompatActivity {
         public void onClick(View v) {
             String editTextFieldText = editTextField.getText().toString();
             if(!editTextFieldText.isEmpty()) {
-                int[] input = getNumberArray();
-                int[][] inputList = new int[][]{input};
+                List<int[]> arrayList = buildLineIntegerList(editTextFieldText);
+                int[][] inputList = build2dArray(arrayList);
 
                 leastResistance = new LeastResistance(inputList);
 
@@ -48,6 +48,26 @@ public class LeastResistanceActivity extends AppCompatActivity {
             } else {
                 outputText.setText("Please enter grid");
             }
+        }
+
+        private List<int[]> buildLineIntegerList(String editTextFieldText) {
+            String[] lines = editTextFieldText.split("\n");
+
+            List<int[]> arrayList = new ArrayList<>();
+            for(String line : lines) {
+                arrayList.add(getNumberArray(line));
+            }
+            return arrayList;
+        }
+
+        private int[][] build2dArray(List<int[]> arrayList) {
+            int[][] inputList = new int[arrayList.size()][arrayList.get(0).length];
+            for (int i = 0; i < inputList.length; i++) {
+                for (int j = 0; j < inputList[0].length; j++) {
+                    inputList[i][j] = arrayList.get(i)[j];
+                }
+            }
+            return inputList;
         }
 
         private String buildOutputMessage() {
@@ -63,10 +83,10 @@ public class LeastResistanceActivity extends AppCompatActivity {
             return message;
         }
 
-        private int[] getNumberArray() {
+        private int[] getNumberArray(String line) {
             List<Integer> rowList = new ArrayList<>();
 
-            for (String item : editTextField.getText().toString().split(" ")) {
+            for (String item : line.split(" ")) {
                 rowList.add(Integer.parseInt(item));
             }
 
