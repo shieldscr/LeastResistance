@@ -113,6 +113,82 @@ public class LeastResistanceTest {
         assertEquals("1 2 2", leastResistance.getPathTaken());
     }
 
+    @Test
+    public void twoRowGridWithAlternatingBestPathCanBeFound() {
+        int [][] grid = {
+                {1, 99, 1},
+                {99, 1, 99}
+        };
+
+        LeastResistance leastResistance = new LeastResistance(grid);
+        leastResistance.findResistance();
+
+        assertEquals("1 2 1", leastResistance.getPathTaken());
+    }
+
+    @Test
+    public void twoRowGridWithFiveColumnsBestPathCanBeFound() {
+        int [][] grid = {
+                {1, 99, 1, 99, 1},
+                {99, 1, 99, 1, 99}
+        };
+
+        LeastResistance leastResistance = new LeastResistance(grid);
+        leastResistance.findResistance();
+
+        assertEquals("1 2 1 2 1", leastResistance.getPathTaken());
+    }
+
+    @Test
+    public void fiveRowGridWithFiveColumnsBestPathCanBeFound() {
+        int [][] grid = {
+                {1, 99, 1, 99, 99},
+                {99, 1, 99, 99, 99},
+                {99, 99, 1, 99, 99},
+                {99, 99, 99, 1, 99},
+                {99, 99, 99, 99, 1}
+        };
+
+        LeastResistance leastResistance = new LeastResistance(grid);
+        leastResistance.findResistance();
+
+        assertEquals("1 2 3 4 5", leastResistance.getPathTaken());
+    }
+
+    @Test
+    public void fiveRowGridWithManyValidCostsBestPathCanBeFound() {
+        int [][] grid = {
+                {1, 9, 1, 9, 9},
+                {1, 1, 9, 1, 9},
+                {9, 9, 1, 9, 10},
+                {1, 9, 9, 1, 9},
+                {1, 9, 9, 9, 1}
+        };
+
+        LeastResistance leastResistance = new LeastResistance(grid);
+        leastResistance.findResistance();
+
+        assertEquals("1 2 3 4 5", leastResistance.getPathTaken());
+    }
+
+    @Test
+    public void sixRowFiveColumnBestPathCanBeFound() {
+        int [][] grid = {
+                {3, 4, 1, 2, 8, 6},
+                {6, 1, 8, 2, 7, 4},
+                {5, 9, 3, 9, 9, 5},
+                {8, 4, 1, 3, 2, 6},
+                {3, 7, 2, 8, 6, 4}
+        };
+
+        LeastResistance leastResistance = new LeastResistance(grid);
+        int actualResistance = leastResistance.findResistance();
+
+        assertEquals(16, actualResistance);
+        assertEquals("Yes", leastResistance.flowSucceeded());
+        assertEquals("1 2 3 4 4 5", leastResistance.getPathTaken());
+    }
+
     private int[][] buildGridOfSize(int rows, int columns) {
         int[][] generatedArray = new int[rows][columns];
 

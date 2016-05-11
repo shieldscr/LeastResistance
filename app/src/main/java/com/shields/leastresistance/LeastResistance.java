@@ -1,12 +1,19 @@
 package com.shields.leastresistance;
 
 public class LeastResistance {
+    public static final int MAX_PATH_COST = 50;
+
     int[][] grid;
-    String pathTaken = "";
-    private String flowSucceeded = "Yes";
+
+    private int lowestCostResistance;
+    private String pathTaken;
+    private String flowSucceeded;
 
     public LeastResistance(int[][] grid) {
         this.grid = grid;
+        pathTaken = "";
+        lowestCostResistance = 55;
+        flowSucceeded = "Yes";
     }
 
     public boolean isGridValid() {
@@ -19,36 +26,47 @@ public class LeastResistance {
     }
 
     public int findResistance() {
-        return findResistanceRecurse(0, 0, 0);
+        findResistanceRecurse(0, 0, 0, "");
+        return lowestCostResistance;
     }
 
-    public int findResistanceRecurse(int column, int row, int resistance) {
-        if(resistance > 50) {
-            flowSucceeded = "No";
-            return resistance;
-        }
-
-        if(column >= grid[0].length) {
-            return resistance;
-        }
-
+    public void findResistanceRecurse(int column, int row, int resistance, String currentPath) {
+        row = resetRows(row);
         resistance += grid[row][column];
-        pathTaken += row + 1 + " ";
 
-        int nextAdjacent = 99;
-        if(column + 1 < grid[0].length) {
-            nextAdjacent = grid[row][column + 1];
+        if (resistance > MAX_PATH_COST) {
+            if (column >= grid[0].length)
+                pathTaken = currentPath;
+
+            flowSucceeded = "No";
+            lowestCostResistance = resistance;
+            return;
         }
 
-        if (row + 1 < grid.length) {
-            if (grid[row + 1][column + 1] < nextAdjacent) {
-                return findResistanceRecurse(column + 1, row + 1, resistance);
-            } else {
-                return findResistanceRecurse(column + 1, row, resistance);
+        currentPath += row + 1 + " ";
+
+        if (endColumnReached(column)) {
+            if (lowestCostResistance > resistance) {
+                lowestCostResistance = resistance;
+                pathTaken = currentPath;
             }
+        } else {
+            findResistanceRecurse(column + 1, row + 1, resistance, currentPath);
+            findResistanceRecurse(column + 1, row, resistance, currentPath);
+            findResistanceRecurse(column + 1, row - 1, resistance, currentPath);
         }
+    }
 
-        return findResistanceRecurse(column + 1, row, resistance);
+    private boolean endColumnReached(int column) {
+        return column == grid[0].length - 1;
+    }
+
+    private int resetRows(int row) {
+        if (row < 0)
+            row = grid.length - 1;
+        if (row == grid.length)
+            row = 0;
+        return row;
     }
 
     public String getPathTaken() {
