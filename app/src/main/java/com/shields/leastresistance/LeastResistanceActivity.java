@@ -61,13 +61,7 @@ public class LeastResistanceActivity extends AppCompatActivity {
         }
 
         private int[][] build2dArray(List<int[]> arrayList) {
-            int[][] inputList = new int[arrayList.size()][arrayList.get(0).length];
-            for (int i = 0; i < inputList.length; i++) {
-                for (int j = 0; j < inputList[0].length; j++) {
-                    inputList[i][j] = arrayList.get(i)[j];
-                }
-            }
-            return inputList;
+            return arrayList.toArray(new int[arrayList.size()][]);
         }
 
         private String buildOutputMessage() {
