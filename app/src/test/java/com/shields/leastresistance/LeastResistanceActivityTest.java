@@ -61,6 +61,14 @@ public class LeastResistanceActivityTest {
     }
 
     @Test
+    public void whenMismatchedRowSizeIsEnteredThenErrorMessageIsDisplayed() {
+        editTextField.setText("1 2 3 4 5\n" +
+                              "1 2 3");
+        runFlowButton.performClick();
+        assertEquals("Each must be at least 5 columns long", outputText.getText());
+    }
+
+    @Test
     public void runFlowButtonReturnsSuccessfulFlowIndicatorWhenPressedWithValidRowLength() {
         editTextField.setText("1 2 3 4 5");
         runFlowButton.performClick();

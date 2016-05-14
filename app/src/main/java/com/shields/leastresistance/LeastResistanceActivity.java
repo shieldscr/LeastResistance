@@ -42,7 +42,12 @@ public class LeastResistanceActivity extends AppCompatActivity {
 
                 leastResistance = new LeastResistance(inputList);
 
-                String message = buildOutputMessage();
+                String message;
+                try {
+                    message = buildOutputMessage();
+                } catch (ArrayIndexOutOfBoundsException exception) {
+                    message = "Each must be at least 5 columns long";
+                }
 
                 outputText.setText(message);
             } else {
@@ -64,7 +69,7 @@ public class LeastResistanceActivity extends AppCompatActivity {
             return arrayList.toArray(new int[arrayList.size()][]);
         }
 
-        private String buildOutputMessage() {
+        private String buildOutputMessage() throws ArrayIndexOutOfBoundsException {
             String message;
             if (!leastResistance.isGridValid())
                 message = "Grid must be at least 5 columns long";
